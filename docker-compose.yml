@@ -1,0 +1,51 @@
+version: '3'
+services:
+
+  #PHP Service
+  app:
+    build:
+        context: ./
+        dockerfile: Dockerfile-fpm
+    image: test:app
+    container_name: app
+    tty: true
+    environment:
+      SERVICE_NAME: app
+    ports:  
+      - "9000:9000"
+    networks:
+      - app-network
+
+  #Nginx Service
+  webserver:
+    build:
+        context: ./
+        dockerfile: Dockerfile-nginx
+    image: test:nginx
+    container_name: webserver
+    tty: true
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "443:443"
+    networks:
+      - app-network
+
+  #MySQL Service
+  db:
+    image: mariadb
+    container_name: db
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      SERVICE_NAME: db
+      MYSQL_DATABASE: iot_annotation
+      MYSQL_ROOT_PASSWORD: secret
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge

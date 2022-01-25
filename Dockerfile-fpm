@@ -1,0 +1,9 @@
+FROM php:fpm
+
+RUN docker-php-ext-install pdo_mysql
+
+COPY ./iot-annotation /var/www/html
+
+EXPOSE 9000
+
+CMD ["php-fpm"]
