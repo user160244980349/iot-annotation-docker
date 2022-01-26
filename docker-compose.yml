@@ -9,6 +9,8 @@ services:
     image: test:app
     container_name: app
     tty: true
+    volume:
+      - ./iot-annotation:/var/www/html
     environment:
       SERVICE_NAME: app
     networks:
