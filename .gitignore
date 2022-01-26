@@ -1,4 +1,6 @@
 
-iot-annotation/
-iot-annotation-frontend/
-iot-annotation-tool/
+/iot-annotation
+/iot-annotation-frontend
+/iot-annotation-tool
+/iot-crawler
+/iot-dataset

@@ -2,7 +2,13 @@ FROM php:fpm
 
 RUN docker-php-ext-install pdo_mysql
 
-COPY ./iot-annotation /var/www/html
+RUN apt-get update && apt-get install -y git
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+WORKDIR /var/www/html
+COPY ./iot-annotation .
+RUN composer install
+RUN chmod +x ./console
 
 EXPOSE 9000
 
