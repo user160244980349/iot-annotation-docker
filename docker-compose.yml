@@ -5,11 +5,13 @@ services:
   app:
     image: test:app
     container_name: app
+    build:
+      context: ./
+      dockerfile: Dockerfile-fpm
     tty: true
     volumes:
+      - ./configs/php/php.ini:/usr/local/etc/php/php.ini
       - ./iot-annotation:/var/www/html
-    environment:
-      SERVICE_NAME: app
     networks:
       - app-network
 
@@ -33,10 +35,9 @@ services:
     container_name: db
     tty: true
     volumes:
-      - ./mariadb_data:/var/lib/mysql
       - ./configs/mariadb/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mariadb_data:/var/lib/mysql
     environment:
-      SERVICE_NAME: db
       MYSQL_ROOT_PASSWORD: secret
     networks:
       - app-network
