@@ -1,28 +1,37 @@
 version: '3'
 services:
 
-  #PHP Service
+  # PHP Service
   app:
     image: test:app
     container_name: app
     build:
-      context: ./
-      dockerfile: Dockerfile-fpm
+      context: ./php-fpm
     tty: true
     volumes:
-      - ./configs/php/php.ini:/usr/local/etc/php/php.ini
-      - ./iot-annotation:/var/www/html
+      - app-volume:/var/www/html
     networks:
       - app-network
 
-  #Nginx Service
+  # Composer
+  composer:
+    image: test:composer
+    container_name: composer
+    build:
+      context: ./composer
+    tty: true
+    volumes:
+      - app-volume:/var/www/html
+
+  # Nginx Service
   webserver:
     image: test:nginx
     container_name: webserver
+    build:
+      context: ./nginx
     tty: true
     volumes:
-      - ./configs/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./iot-annotation/public:/var/www/html/public
+      - app-volume:/var/www/html
     ports:
       - "80:80"
       - "8080:8080"
@@ -30,20 +39,25 @@ services:
     networks:
       - app-network
 
-  #MySQL Service
+  # MySQL Service
   db:
-    image: mariadb
+    image: test:mariadb
     container_name: db
+    build:
+      context: ./mariadb
     tty: true
     volumes:
-      - ./configs/mariadb/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./mariadb_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: secret
     networks:
       - app-network
 
-#Docker Networks
+# Docker Volumes
+volumes:
+  app-volume:
+
+# Docker Networks
 networks:
   app-network:
     driver: bridge

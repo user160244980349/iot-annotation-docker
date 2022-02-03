@@ -3,6 +3,7 @@ CREATE DATABASE iot_annotation;
 GRANT ALL PRIVILEGES ON iot_annotation.* TO iot_annotation;
 USE iot_annotation;
 
+-- Migrations --
 CREATE TABLE `users` (
     `id`    INT PRIMARY KEY AUTO_INCREMENT,
     `name`  VARCHAR(255) UNIQUE NOT NULL,
