@@ -9,7 +9,7 @@ services:
       context: ./php-fpm
     tty: true
     volumes:
-      - app-volume:/var/www/html
+      - ./iot-annotation:/var/www/html
     networks:
       - app-network
 
@@ -21,7 +21,7 @@ services:
       context: ./composer
     tty: true
     volumes:
-      - app-volume:/var/www/html
+      - ./iot-annotation:/var/www/html
 
   # Nginx Service
   webserver:
@@ -31,7 +31,7 @@ services:
       context: ./nginx
     tty: true
     volumes:
-      - app-volume:/var/www/html
+      - ./iot-annotation:/var/www/html
     ports:
       - "80:80"
       - "8080:8080"
@@ -52,10 +52,6 @@ services:
       MYSQL_ROOT_PASSWORD: secret
     networks:
       - app-network
-
-# Docker Volumes
-volumes:
-  app-volume: ./iot-annotation
 
 # Docker Networks
 networks:
