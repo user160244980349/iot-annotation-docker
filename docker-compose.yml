@@ -55,7 +55,7 @@ services:
 
 # Docker Volumes
 volumes:
-  app-volume:
+  app-volume: ./iot-annotation
 
 # Docker Networks
 networks:
