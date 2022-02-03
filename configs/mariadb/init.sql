@@ -79,40 +79,40 @@ INSERT INTO `users` (
     `name`,
     `email` 
 ) VALUES
-('Admin', 'admin@iot_annotation.box');
+    ('Admin', 'admin@iot_annotation.box');
 
 INSERT INTO `passwords` (
     `id`, 
     `value`
 ) VALUES
-(1, MD5(MD5('secret')));
+    (1, MD5(MD5('secret')));
 
 INSERT INTO `groups` (
     `name`
 ) VALUES
-('Authenticated'),
-('Administrator');
+    ('Authenticated'),
+    ('Administrator');
 
 INSERT INTO `permissions` (
     `for`
 ) VALUES
-('visit-home'),
-('manage-users'),
-('manage-groups'),
-('manage-data');
+    ('visit-home'),
+    ('manage-users'),
+    ('manage-groups'),
+    ('manage-data');
 
 INSERT INTO `group_permission` (
     `group_id`,
     `permission_id`
 ) VALUES
-(1, 1),
-(2, 2),
-(2, 3),
-(2, 4);
+    (1, 1),
+    (2, 2),
+    (2, 3),
+    (2, 4);
 
 INSERT INTO `group_user` (
     `group_id`,
     `user_id`
 ) VALUES
-(1, 1),
-(2, 1);
+    (1, 1),
+    (2, 1);
