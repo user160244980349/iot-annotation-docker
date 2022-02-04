@@ -48,7 +48,6 @@ CREATE TABLE `policies` (
     `id`        INT PRIMARY KEY AUTO_INCREMENT,
     `hash`      VARCHAR(255) UNIQUE NOT NULL,
     `requested` INT DEFAULT 0,
-    `annotated` INT DEFAULT 0,
     `content`   MEDIUMTEXT
 );
 
@@ -59,7 +58,7 @@ CREATE TABLE `products` (
     `product_url`  MEDIUMTEXT,
     `website_url`  MEDIUMTEXT,
     `policy_url`   VARCHAR(255),
-    `policy_hash`  VARCHAR(255),
+    `policy_hash`  VARCHAR(255) DEFAULT NULL,
     FOREIGN KEY (`policy_hash`) REFERENCES `policies`(`hash`)
 );
 
@@ -69,7 +68,7 @@ CREATE TABLE `selections` (
     `ends_on`         INT,
     `selection_class` VARCHAR(255) NOT NULL,
     `user_id`         INT,
-    `policy_hash`     VARCHAR(255),
+    `policy_hash`     VARCHAR(255) DEFAULT NULL,
     `created_at`      DATETIME DEFAULT NOW(),
     FOREIGN KEY (`user_id`)     REFERENCES `users`(`id`),
     FOREIGN KEY (`policy_hash`) REFERENCES `policies`(`hash`)
