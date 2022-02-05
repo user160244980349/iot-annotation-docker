@@ -7,6 +7,9 @@ RUN apt-get install -y libzip-dev
 RUN docker-php-ext-install mysqli pdo pdo_mysql zip
 RUN mkdir -p /var/www/html/resources/sessions
 
-CMD chown -R www-data:www-data /var/www/html/resources \
-    && chmod -R 0755 /var/www/html/resources \
+WORKDIR /var/www/html/
+
+CMD cp example.env.php env.php \
+    && chown -R www-data:www-data resources \
+    && chmod -R 0755 resources \
     && php-fpm
