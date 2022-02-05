@@ -5,3 +5,7 @@ COPY php.ini /usr/local/etc/php
 RUN apt-get update
 RUN apt-get install -y libzip-dev
 RUN docker-php-ext-install mysqli pdo pdo_mysql zip
+
+RUN mkdir -p /var/www/html/resources/sessions
+RUN chown -R www-data:www-data /var/www/html/resources
+RUN chmod -R 0755 /var/www/html/resources

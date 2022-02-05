@@ -10,6 +10,7 @@ services:
     tty: true
     volumes:
       - ./iot-annotation:/var/www/html
+      - ./php_data:/var/www/html/resources/sessions
     networks:
       - app-network
 
