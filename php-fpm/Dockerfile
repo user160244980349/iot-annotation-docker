@@ -8,6 +8,7 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql zip
 RUN mkdir -p /var/www/html/resources/sessions
 
 WORKDIR /var/www/html/
+RUN mkdir -p resources/sessions
 
 CMD cp example.env.php env.php \
     && chown -R www-data:www-data resources \
