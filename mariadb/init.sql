@@ -63,13 +63,14 @@ CREATE TABLE `products` (
 );
 
 CREATE TABLE `selections` (
-    `id`              INT PRIMARY KEY AUTO_INCREMENT,
-    `starts_on`       INT,
-    `ends_on`         INT,
-    `selection_class` VARCHAR(255) NOT NULL,
-    `user_id`         INT,
-    `policy_hash`     VARCHAR(255) DEFAULT NULL,
-    `created_at`      DATETIME DEFAULT NOW(),
+    `id`                INT PRIMARY KEY AUTO_INCREMENT,
+    `starts_on`         INT,
+    `ends_on`           INT,
+    `selection_class`   VARCHAR(255) NOT NULL,
+    `selection_content` MEDIUMTEXT,
+    `user_id`           INT,
+    `policy_hash`       VARCHAR(255) DEFAULT NULL,
+    `created_at`        DATETIME DEFAULT NOW(),
     FOREIGN KEY (`user_id`)     REFERENCES `users`(`id`),
     FOREIGN KEY (`policy_hash`) REFERENCES `policies`(`hash`)
 );
