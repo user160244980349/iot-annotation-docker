@@ -9,7 +9,7 @@ services:
       context: ./php-fpm
     tty: true
     volumes:
-      - ./iot-annotation:/var/www/html
+      - ./php-fpm/iot-annotation:/var/www/html
       - ./php_data:/var/www/html/resources/sessions
     networks:
       - app-network
@@ -22,7 +22,7 @@ services:
       context: ./composer
     tty: true
     volumes:
-      - ./iot-annotation:/var/www/html
+      - ./php-fpm/iot-annotation:/var/www/html
 
   # Nginx Service
   webserver:
@@ -32,7 +32,7 @@ services:
       context: ./nginx
     tty: true
     volumes:
-      - ./iot-annotation:/var/www/html
+      - ./php-fpm/iot-annotation:/var/www/html
     ports:
       - "80:80"
       - "8080:8080"

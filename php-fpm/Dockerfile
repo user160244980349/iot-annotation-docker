@@ -1,15 +1,12 @@
-FROM php:8.0-fpm
+FROM php:8.0-fpm-alpine
 
 COPY php.ini /usr/local/etc/php
 
-RUN apt-get update
-RUN apt-get install -y libzip-dev
-RUN docker-php-ext-install mysqli pdo pdo_mysql zip
+RUN apk add libzip-dev
+RUN docker-php-ext-install pdo pdo_mysql zip
 
-WORKDIR /var/www/html/
-RUN mkdir -p resources/sessions
+RUN mkdir -p /var/www/html/resources/sessions
 
-CMD cp example.env.php env.php \
-    && chown -R www-data:www-data resources \
-    && chmod -R 0755 resources \
+CMD chown -R www-data:www-data /var/www/html/resources \
+    && chmod -R 0755 /var/www/html/resources \
     && php-fpm
