@@ -1,9 +1,8 @@
-FROM php:8.0-fpm
+FROM php:8.0-fpm-alpine
 
 COPY php.ini /usr/local/etc/php
 
-RUN apt-get update
-RUN apt-get install -y libzip-dev
+RUN apk add libzip-dev
 RUN docker-php-ext-install pdo pdo_mysql zip
 
 COPY iot-annotation /var/www/html
