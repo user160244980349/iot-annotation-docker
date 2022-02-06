@@ -2,4 +2,5 @@ This is PHP app for iot-dataset annotation
 ==================
 
 # TODO
-- [ ] Production images
+- [x] Dev build
+- [x] Production build
