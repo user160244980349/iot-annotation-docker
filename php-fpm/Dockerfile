@@ -1,10 +1,9 @@
 FROM php:8.0-fpm-alpine
 
-COPY php.ini /usr/local/etc/php
-
 RUN apk add libzip-dev
 RUN docker-php-ext-install pdo pdo_mysql zip
 
+COPY php.ini /usr/local/etc/php
 COPY iot-annotation /var/www/html
 RUN mkdir -p /var/www/html/resources/sessions
 

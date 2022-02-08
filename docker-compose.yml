@@ -9,10 +9,10 @@ services:
       context: ./php-fpm
     tty: true
     volumes:
-      - app-volume:/var/www/html
       - ./php_data:/var/www/html/resources/sessions
+      - /var/www/html
     networks:
-      - app-network
+      - app_network
 
   # Composer
   composer:
@@ -21,8 +21,8 @@ services:
     build:
       context: ./composer
     tty: true
-    volumes:
-      - app-volume:/var/www/html
+    volumes_from:
+      - app
 
   # Nginx Service
   webserver:
@@ -32,13 +32,25 @@ services:
       context: ./nginx
     tty: true
     volumes:
-      - app-volume:/var/www/html
+      - /var/www/html
     ports:
       - "80:80"
       - "8080:8080"
       - "443:443"
     networks:
-      - app-network
+      - app_network
+
+  # NPM
+  npm:
+    image: test:npm
+    container_name: npm
+    build:
+      context: ./npm
+    tty: true
+    environment: 
+    - NODE_OPTIONS=--openssl-legacy-provider
+    volumes_from:
+      - webserver
 
   # MySQL Service
   db:
@@ -52,13 +64,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: secret
     networks:
-      - app-network
-
-# Docker Volumes
-volumes:
-  app-volume:
+      - app_network
 
 # Docker Networks
 networks:
-  app-network:
+  app_network:
     driver: bridge
