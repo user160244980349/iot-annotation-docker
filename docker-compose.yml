@@ -48,7 +48,7 @@ services:
       context: ./npm
     tty: true
     environment: 
-    - NODE_OPTIONS=--openssl-legacy-provider
+      - NODE_OPTIONS=--openssl-legacy-provider
     volumes_from:
       - webserver
 
